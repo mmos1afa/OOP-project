@@ -19,9 +19,9 @@ public class User {
 
     public static void mainDashboard(){
         System.out.println("---Welcome to the Event Management System---");
-        System.out.println("Please select an option");
+        System.out.println("--Please select an option--");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1.Register \n2.Login \n3.Exit");
+        System.out.println("1) Register \n2) Login \n3) Exit");
         int x = scanner.nextInt();
         switch(x)
         {
@@ -169,7 +169,8 @@ public class User {
             case 1 :
                 for (Admin a : Database.getAdmins()) {
                     if (a.loginCheck(username, password)) {
-                        System.out.println(" Admin login successful.");
+                        System.out.println("Admin login successful!");
+                        System.out.println("Opening Admin Menu");
                         a.adminDashboard();
                         found = true;
                         break;
@@ -179,7 +180,8 @@ public class User {
             case 2:
                 for (Organizer o : Database.getOrganizers()) {
                     if (o.loginCheck(username, password)) {
-                        System.out.println(" Organizer login successful.");
+                        System.out.println("Organizer login successful!");
+                        System.out.println("Opening Organizer Menu");
                         o.organizerDashboard();
                         found = true;
                         break;
@@ -190,6 +192,7 @@ public class User {
                 for (Attendee at : Database.getAttendees()) {
                     if (at.loginCheck(username, password)) {
                         System.out.println(" Attendee login successful.");
+                        System.out.println("Opening Attendee Menu");
                         at.attendeeMenu();
                         found = true;
                         break;
@@ -197,12 +200,12 @@ public class User {
                 }
                 break;
             default:
-                System.out.println(" Invalid user type.");
+                System.out.println("Invalid user type, Please try again!");
                 login();
                 break;
         }
         if (!found) {
-            System.out.println(" Login failed. Check username/password.");
+            System.out.println(" Login failed! Check username/password.");
             login();
         }
     }
