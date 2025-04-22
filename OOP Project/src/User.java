@@ -47,37 +47,47 @@ public class User {
         int choice = scanner.nextInt();
         scanner.nextLine();
         Date dob = null;
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        if (choice == 1){
-            for (Admin a : Database.getAdmins()) {
-                if(a.getUsername().equals(username))
-                {
-                    System.out.println("Username already taken. Please try again.");
-                    register();
-                    return;
+        String username = null;
+        switch(choice) {
+            case 1:
+                System.out.print("Username: ");
+                username = scanner.nextLine();
+                for (Admin a : Database.getAdmins()) {
+                    if (a.getUsername().equals(username)) {
+                        System.out.println("Username already taken. Please try again.");
+                        register();
+                        return;
+                    }
+                    break;
                 }
-            }
-        }
-        else if (choice == 2){
-            for (Organizer o : Database.getOrganizers()) {
-                if(o.getUsername().equals(username))
-                {
-                    System.out.println("Username already taken. Please try again.");
-                    register();
-                    return;
+
+
+            case 2:
+                System.out.print("Username: ");
+                username = scanner.nextLine();
+                for (Organizer o : Database.getOrganizers()) {
+                    if (o.getUsername().equals(username)) {
+                        System.out.println("Username already taken. Please try again.");
+                        register();
+                        return;
+                    }
                 }
-            }
-        }
-        else if (choice == 3){
-            for (Attendee at : Database.getAttendees()) {
-                if(at.getUsername().equals(username))
+                break;
+            case 3:
+                System.out.print("Username: ");
+                username = scanner.nextLine();
+                for (Attendee at : Database.getAttendees())
                 {
-                    System.out.println("Username already taken. Please try again.");
-                    register();
-                    return;
+                    if (at.getUsername().equals(username)) {
+                        System.out.println("Username already taken. Please try again.");
+                        register();
+                        return;
+                    }
                 }
-            }
+                break;
+            default:
+                System.out.println("invalid choice");
+                register();
         }
 
         System.out.print("Password: ");
@@ -96,7 +106,11 @@ public class User {
                 System.out.print("Role: ");
                 String role = scanner.nextLine();
                 System.out.print("Working Hours: ");
+
+
                 int hours = scanner.nextInt();
+
+
                 scanner.nextLine();
                 Admin admin = new Admin(username, password, dob, role, hours);
                 Database.getAdmins().add(admin);
@@ -134,9 +148,11 @@ public class User {
         }
         scanner.close();
     }
+
     public boolean loginCheck(String inputUsername, String inputPassword) {
         return this.username.equals(inputUsername) && this.password.equals(inputPassword);
     }
+
     public static void login() {
         System.out.println("Login as: \n1) Admin \n2) Organizer \n3) Attendee");
         int choice = scanner.nextInt();
@@ -196,4 +212,3 @@ public class User {
     }
 
 }
-

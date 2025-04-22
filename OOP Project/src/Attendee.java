@@ -24,9 +24,10 @@ public class Attendee extends User{
     Scanner input= new Scanner(System.in);
 
     void attendeeMenu(){
-        System.out.println("\nWelcome to attendee menu");
-        System.out.println("1.View Profile\n"+"2.View All Events\n"+"3.Search for events\n"+"4.View My events\n"+"5.Buy Ticket\n"+"6.View Balance\n"+"7.Add balance\n"+"8.Logout\n");
-        System.out.println("Enter your Choice.");
+        System.out.println("\n---Welcome to Attendee Menu---");
+        System.out.println("--Please select an option--");
+        System.out.println("1) View Profile\n"+"2) View All Events\n"+"3) Search for events\n"+"4) View My events\n"+"5) Buy Ticket\n"+"6) View Balance\n"+"7) Add balance\n"+"8) Logout\n");
+
         int x= input.nextInt();
         input.nextLine();
 
@@ -72,16 +73,16 @@ public class Attendee extends User{
     public void viewMyEvents(){
         for(Attendee a : Database.getAttendees()){
             if(a.getRegisteredEvents().isEmpty()){
-                System.out.println("\nNo Events Registered");
+                System.out.println("\nNo Events Registered!");
             }else {
-                System.out.println("\nYour Registered Events:");
+                System.out.println("\n---Your Registered Events---");
                 a.getRegisteredEvents().forEach(System.out::println);
             }
         }
     }
     public void registerEvent() {
         if (Database.getEvents().isEmpty()) {
-            System.out.println("\nNo events available at the moment.");
+            System.out.println("\nNo events available at the moment!");
         }
         else {
             System.out.println("\nEnter the name of event you'd like to register for:");
@@ -111,13 +112,13 @@ public class Attendee extends User{
 
 
     public void viewAllEvents(){
-        System.out.println("\nAll Events:");
+        System.out.println("\n---All Events---");
         Database.getEvents().forEach(System.out::println);
     }
 
 
     public void viewProfile() {
-        System.out.println("\nYour Profile Details:");
+        System.out.println("\n---Profile Details---");
         for (Attendee a1 : Database.getAttendees()) {
             if (a1.username.equals(this.username)) {
                 System.out.println("User Name: "+this.username + " " + " Password: "+ this.password + " " + "Date of Birth : "+ this.dateOfBirth + " " + "Gender: "+ this.gender+" "+"Registered events:"+this.getRegisteredEvents());

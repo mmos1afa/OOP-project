@@ -15,15 +15,15 @@ public class Admin extends User implements CRUD{
 
     Scanner scanner = new Scanner(System.in);
     public void adminDashboard(){
-        System.out.println("\nWelcome to the Admin Dashboard");
-        System.out.println("Please select an option");
-        System.out.println("1. Show all rooms");
-        System.out.println("2. Show all events");
-        System.out.println("3. Show all attendees");
-        System.out.println("4. Show all organizers");
-        System.out.println("5. Add a room");
-        System.out.println("6. Category Dashboard");
-        System.out.println("7. Logout");
+        System.out.println("\n---Welcome Admin Menu---");
+        System.out.println("--Please select an option--");
+        System.out.println("1) Show all rooms");
+        System.out.println("2) Show all events");
+        System.out.println("3) Show all attendees");
+        System.out.println("4) Show all organizers");
+        System.out.println("5) Add a room");
+        System.out.println("6) Category Dashboard");
+        System.out.println("7) Logout");
         System.out.println("Enter your choice: ");
         int x = scanner.nextInt();
         scanner.nextLine();
@@ -62,7 +62,7 @@ public class Admin extends User implements CRUD{
         }
     }
     public void viewAllRooms(){
-        System.out.println("\nAll rooms:");
+        System.out.println("\n---All rooms:---");
         Database.getRooms().forEach(System.out::println);
     }
     public void create(){
@@ -114,26 +114,27 @@ public class Admin extends User implements CRUD{
     }
 
     public void viewAllEvents(){
-        System.out.println("\nAll events:");
+        System.out.println("\n---All Events---");
         Database.getEvents().forEach(System.out::println);
     }
     public void viewAllAttendees(){
-        System.out.println("\nAll attendees:");
+        System.out.println("\n---All Attendees---");
         Database.getAttendees().forEach(System.out::println);
     }
     public void viewAllOrganizers(){
-        System.out.println("\nAll organizers:");
+        System.out.println("\n---All Organizers---");
         Database.getOrganizers().forEach(System.out::println);
     }
 
     public void categoryDashboard(){
-        System.out.println("\nPlease select an option");
-        System.out.println("1. Create new category");
-        System.out.println("2. Update an existing category");
-        System.out.println("3. Read existing categories");
-        System.out.println("4. Delete an existing category");
-        System.out.println("5. Get total number of categories");
-        System.out.println("6. Return to admin dashboard");
+        System.out.println("---Category Dashboard---");
+        System.out.println("\nPlease select an option:");
+        System.out.println("1) Create new category");
+        System.out.println("2) Update an existing category");
+        System.out.println("3) Read existing categories");
+        System.out.println("4) Delete an existing category");
+        System.out.println("5) Get total number of categories");
+        System.out.println("6) Return to admin dashboard");
         System.out.println("Enter your choice: ");
         int x = scanner.nextInt();
         scanner.nextLine();
