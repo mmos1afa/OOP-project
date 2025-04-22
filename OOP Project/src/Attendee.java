@@ -7,7 +7,7 @@ public class Attendee extends User{
     private Gender gender;
     private double balance;
     private String address;
-    Wallet wallet;
+    private Wallet wallet;
     private List<Event>registeredevents;
     private String interests;
 
