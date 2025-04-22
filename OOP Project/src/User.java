@@ -18,7 +18,7 @@ public class User {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void mainDashboard(){
-        System.out.println("Welcome to the Event Management System");
+        System.out.println("---Welcome to the Event Management System---");
         System.out.println("Please select an option");
         Scanner scanner = new Scanner(System.in);
         System.out.println("1.Register \n2.Login \n3.Exit");
