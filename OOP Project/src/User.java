@@ -54,16 +54,16 @@ public class User {
 
         int choice = -1;
         boolean validchoice = false;
-        while (!validchoice){
-        try {
-            choice = scanner.nextInt();
-            scanner.nextLine();
-            if (choice >= 1 && choice <= 3) {
-                validchoice = true;
-            } else {
-                System.out.println("Invalid choice. Please Try Again");
-            }
-        }catch(Exception e){
+        while (!validchoice) {
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice >= 1 && choice <= 3) {
+                    validchoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please Try Again");
+                }
+            } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine();
                 register();
@@ -182,90 +182,78 @@ public class User {
 
     public boolean loginCheck(String inputUsername, String inputPassword) {
         boolean isvalid = this.username.equals(inputUsername) && this.password.equals(inputPassword);
-        if(!isvalid){
-            System.out.println("Invalid Login For: "+ username);
+        if (!isvalid) {
+            System.out.println("Invalid Login For: " + username);
         }
         return isvalid;
     }
 
 
-    public static void login()
-    {
-
-    public static void login()
-    {
-        System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        if(choice>3||choice<1)
-        {
-            System.out.println("invalid choice. Please try again.");
-            login();
-            return;
-        }
-
-        System.out.print("Username: ");
-        String username = scanner.next().trim();
-        System.out.print("Password: ");
-        String password = scanner.next().trim();
-        if(choice>=3||choice<=1)
-        {
-            System.out.println("invalid choice. Please try again.");
-            login();
-            return;
-        }
-        boolean found = false;
-
-        switch (choice)
-        {
-            case 1:
-                for (Admin a : Database.getAdmins())
-                {
-                    if (a.loginCheck(username, password))
-                    {
-                        System.out.println(" Admin login successful.");
-                        a.adminDashboard();
-                        found = true;
-                        break;
-                    }
-                }
-                break;
-            case 2:
-                for (Organizer o : Database.getOrganizers())
-                {
-                    if (o.loginCheck(username, password))
-                    {
-                        System.out.println(" Organizer login successful.");
-                        o.organizerDashboard();
-                        found = true;
-                        break;
-                    }
-                }
-                break;
-            case 3:
-                for (Attendee at : Database.getAttendees()) {
-                    if (at.loginCheck(username, password)) {
-                        System.out.println(" Attendee login successful.");
-                        at.attendeeMenu();
-                        found = true;
-                        break;
-                    }
-                }
-                break;
-            default:
-                System.out.println(" Invalid user type.");
+    public static void login() {
+            System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            if (choice > 3 || choice < 1) {
+                System.out.println("invalid choice. Please try again.");
                 login();
-                break;
-        }
-        if (!found)
-        {
-            System.out.println(" Login failed. Check username/password.");
-            login();
-        }
-    }
+                return;
+            }
 
-    public void logout() {
-        System.out.println("Logging out....");
-        mainDashboard();
+            System.out.print("Username: ");
+            String username = scanner.next().trim();
+            System.out.print("Password: ");
+            String password = scanner.next().trim();
+            if (choice >= 3 || choice <= 1) {
+                System.out.println("invalid choice. Please try again.");
+                login();
+                return;
+            }
+            boolean found = false;
+
+            switch (choice) {
+                case 1:
+                    for (Admin a : Database.getAdmins()) {
+                        if (a.loginCheck(username, password)) {
+                            System.out.println(" Admin login successful.");
+                            a.adminDashboard();
+                            found = true;
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    for (Organizer o : Database.getOrganizers()) {
+                        if (o.loginCheck(username, password)) {
+                            System.out.println(" Organizer login successful.");
+                            o.organizerDashboard();
+                            found = true;
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    for (Attendee at : Database.getAttendees()) {
+                        if (at.loginCheck(username, password)) {
+                            System.out.println(" Attendee login successful.");
+                            at.attendeeMenu();
+                            found = true;
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println(" Invalid user type.");
+                    login();
+                    break;
+            }
+            if (!found) {
+                System.out.println(" Login failed. Check username/password.");
+                login();
+            }
+        }
+
+        public void logout () {
+            System.out.println("Logging out....");
+            mainDashboard();
+        }
     }
-}
