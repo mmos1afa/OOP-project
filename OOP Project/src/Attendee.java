@@ -24,48 +24,58 @@ public class Attendee extends User{
     Scanner input= new Scanner(System.in);
 
     void attendeeMenu(){
-        System.out.println("\n---Welcome to Attendee Menu---");
-        System.out.println("--Please select an option--");
-        System.out.println("1) View Profile\n"+"2) View All Events\n"+"3) Search for events\n"+"4) View My events\n"+"5) Buy Ticket\n"+"6) View Balance\n"+"7) Add balance\n"+"8) Logout\n");
+        while (true) {
+            try {
+                System.out.println("\n--- Welcome to Attendee Menu ---");
+                System.out.println("-- Please select an option --");
+                System.out.println("1) View Profile");
+                System.out.println("2) View All Events");
+                System.out.println("3) Search for events");
+                System.out.println("4) View My Events");
+                System.out.println("5) Buy Ticket");
+                System.out.println("6) View Balance");
+                System.out.println("7) Add Balance");
+                System.out.println("8) Logout");
+                System.out.print("Enter your choice: ");
 
-        int x= input.nextInt();
-        input.nextLine();
+                int x = input.nextInt();
+                input.nextLine(); // consume the newline
 
-        switch (x){
-            case 1:
-                viewProfile();
-                attendeeMenu();
-                break;
-            case 2:
-                viewAllEvents();
-                attendeeMenu();
-                break;
-            case 3:
-                searchEvents();
-                attendeeMenu();
-                break;
-            case 4:
-                viewMyEvents();
-                attendeeMenu();
-                break;
-            case 5:
-                registerEvent();
-                attendeeMenu();
-                break;
-            case 6:
-                viewBalance();
-                attendeeMenu();
-                break;
-            case 7:
-                AddBalance();
-                attendeeMenu();
-                break;
-            case 8:
-                logout();
-                break;
-
+                switch (x) {
+                    case 1:
+                        viewProfile();
+                        break;
+                    case 2:
+                        viewAllEvents();
+                        break;
+                    case 3:
+                        searchEvents();
+                        break;
+                    case 4:
+                        viewMyEvents();
+                        break;
+                    case 5:
+                        registerEvent();
+                        break;
+                    case 6:
+                        viewBalance();
+                        break;
+                    case 7:
+                        AddBalance();
+                        break;
+                    case 8:
+                        logout();
+                        return; // Exit the menu after logout
+                    default:
+                        System.out.println("Invalid choice. Please enter a number between 1 and 8.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+                input.nextLine(); // clear the invalid input
+            }
         }
     }
+
     public List<Event> getRegisteredEvents(){
         return registeredevents;
     }

@@ -9,22 +9,27 @@ public class Event {
     private double price;
     private List<Attendee> attendees = new ArrayList<>();
 
-    public void setPrice(double price) {
+    public void setPrice(double price)
+    {
         this.price = price;
     }
-    public double getTicketPrice(){
+    public double getTicketPrice()
+    {
         return price;
     }
 
-    public Category getCategory() {
+    public Category getCategory()
+    {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Category category)
+    {
         this.category = category;
     }
 
-    public Event(Room room, String title, double price, Category category) {
+    public Event(Room room, String title, double price, Category category)
+    {
         this.room = room;
         this.title = title;
         this.category = category;

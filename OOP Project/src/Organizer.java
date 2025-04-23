@@ -9,67 +9,82 @@ import java.util.Date;
 public class Organizer extends User implements CRUD {
     private final Wallet wallet;
 
-    public Organizer(String username, String password, Date dateOfBirth) {
+    public Organizer(String username, String password, Date dateOfBirth)
+    {
         super(username, password, dateOfBirth);
         this.wallet = new Wallet(0.0);
     }
-    public Wallet getWallet() {
+    public Wallet getWallet()
+    {
         return wallet;
     }
 
     Scanner scanner = new Scanner(System.in);
 
-    public void organizerDashboard() {
-        System.out.println("\n---Welcome to Organizer Menu---");
-        System.out.println("--Please select an option--");
-        System.out.println("1) Event dashboard");
-        System.out.println("2) View my attendees");
-        System.out.println("3) View all available rooms");
-        System.out.println("4) Show my balance");
-        System.out.println("5) Statistics");
-        System.out.println("6) Logout");
-        int x = scanner.nextInt();
-        scanner.nextLine();
+    public void organizerDashboard()
+    {
+        while (true)
+        {
+            try {
+                System.out.println("-- Please select an option --");
+                System.out.println("1) Event dashboard");
+                System.out.println("2) View my attendees");
+                System.out.println("3) View all available rooms");
+                System.out.println("4) Show my balance");
+                System.out.println("5) Statistics");
+                System.out.println("6) Logout");
 
-        switch (x) {
-            case 1:
-                eventDashboard();
-                organizerDashboard();
-                break;
-            case 2:
-                viewMyAttendees();
-                organizerDashboard();
-                break;
-            case 3:
-                viewAvailableRooms();
-                organizerDashboard();
-                break;
-            case 4:
-                viewBalance();
-                organizerDashboard();
-                break;
-            case 5:
-                Earnings();
-                organizerDashboard();
-                break;
-            case 6:
-                logout();
-                break;
-            default:
-                System.out.println("Invalid choice.");
-                organizerDashboard();
-                break;
+                int x = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+
+                switch (x)
+                {
+                    case 1:
+                        eventDashboard();
+                        break;
+                    case 2:
+                        viewMyAttendees();
+                        break;
+                    case 3:
+                        viewAvailableRooms();
+                        break;
+                    case 4:
+                        viewBalance();
+                        break;
+                    case 5:
+                        Earnings();
+                        break;
+                    case 6:
+                        logout();
+                        return; // exit the loop after logout
+                    default:
+                        System.out.println("Invalid choice. Please select from 1 to 6.");
+                }
+            } catch (Exception e)
+            {
+                System.out.println("Invalid input. Please enter a number from 1 to 6.");
+                scanner.nextLine(); // clear the invalid input
+            }
         }
     }
 
-    public void viewMyAttendees() {
+
+
+    public void viewMyAttendees()
+    {
         System.out.println("\n---Your Attendees---");
-        for (Event event : Database.getEvents()) {
-            if (event.getOrganizer() != null && event.getOrganizer().equals(this)) {
-                if (event.getAttendees().isEmpty()) {
+        for (Event event : Database.getEvents())
+        {
+            if (event.getOrganizer() != null && event.getOrganizer().equals(this))
+            {
+                if (event.getAttendees().isEmpty())
+                {
                     System.out.println("  No attendees yet!");
-                } else {
-                    for (Attendee attendee : event.getAttendees()) {
+                }
+                else
+                {
+                    for (Attendee attendee : event.getAttendees())
+                    {
                         System.out.println("  - " + attendee.getUsername());
                     }
                 }
@@ -77,7 +92,8 @@ public class Organizer extends User implements CRUD {
         }
     }
 
-    public LocalTime viewAvailableRooms() {
+    public LocalTime viewAvailableRooms()
+    {
         System.out.println("\nEnter Time you want to check available rooms in: (HH:mm)");
         Scanner etime = new Scanner(System.in);
         String eventtime = etime.nextLine();
@@ -88,23 +104,28 @@ public class Organizer extends User implements CRUD {
             System.out.println("No rooms available at " + time + ".");
             viewAvailableRooms();
         }
-        else{
+        else
+        {
             System.out.println("Available rooms at " + time + ":");
-            for (Room room : availablerooms) {
+            for (Room room : availablerooms)
+            {
                 System.out.println("  - " + room);
             }
         }
         return time;
     }
 
-    public void viewBalance() {
+    public void viewBalance()
+    {
         System.out.println("\nYour Balance: " + wallet.getBalance());
     }
 
     public void read() {
         System.out.println("\n---Your Organized Events---");
-        for (Event event : Database.getEvents()) {
-            if (event.getOrganizer() != null && event.getOrganizer().equals(this)) {
+        for (Event event : Database.getEvents())
+        {
+            if (event.getOrganizer() != null && event.getOrganizer().equals(this))
+            {
                 System.out.println(event);
             }
         }
@@ -114,7 +135,8 @@ public class Organizer extends User implements CRUD {
         Room selectedRoom = null;
 
         for (Room r : Database.getRooms()) {
-            if (r.getRoomName().equals(roomName)) {
+            if (r.getRoomName().equals(roomName))
+            {
                 selectedRoom = r;
                 break;
             }
@@ -175,7 +197,8 @@ public class Organizer extends User implements CRUD {
         System.out.println("Event created successfully!");
     }
 
-    public void update(){
+    public void update()
+    {
         System.out.println("---Update Your Event---");
 
         read();
@@ -183,8 +206,10 @@ public class Organizer extends User implements CRUD {
         String name = scanner.nextLine();
         boolean found = false;
 
-        for(Event event:Database.getEvents()){
-            if(event != null && event.getTitle().equalsIgnoreCase(name)){
+        for(Event event:Database.getEvents())
+        {
+            if(event != null && event.getTitle().equalsIgnoreCase(name))
+            {
                 System.out.println("Please enter the new name of the event:");
                 String newName = scanner.nextLine();
                 event.setTitle(newName);
@@ -205,8 +230,10 @@ public class Organizer extends User implements CRUD {
                 Database.getCategories().forEach(System.out::println);
                 System.out.println("Please enter the new category of the event:");
                 String newCategory = scanner.nextLine();
-                for(Event event1:Database.getEvents()){
-                    if(event1.getCategory().getName().equals(newCategory)){
+                for(Event event1:Database.getEvents())
+                {
+                    if(event1.getCategory().getName().equals(newCategory))
+                    {
                         event.setCategory(event1.getCategory());
                     }
                     else{
@@ -216,11 +243,13 @@ public class Organizer extends User implements CRUD {
                 }
             }
         }
-        if(!found){
+        if(!found)
+        {
             System.out.println("Event not found!");
         }
     }
-    public void delete(){
+    public void delete()
+    {
         System.out.println("---Delete Your Event---");
 
         read();
@@ -231,7 +260,8 @@ public class Organizer extends User implements CRUD {
                 Database.getEvents().remove(event);
                 System.out.println("Event deleted successfully!");
             }
-            else{
+            else
+            {
                 System.out.println("Event not found!");
             }
         }
@@ -239,55 +269,68 @@ public class Organizer extends User implements CRUD {
 
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "\nUsername: " + username + "  ,Date of Birth: " + dateOfBirth ;
     }
 
-    public void eventDashboard() {
-        System.out.println("---Welcome To Event Menu---");
-        System.out.println("\nPlease select an option");
-        System.out.println("1) Create new event");
-        System.out.println("2) Update an existing event");
-        System.out.println("3) View my events");
-        System.out.println("4) Delete an existing event");
-        System.out.println("5) Return to organizer dashboard");
-        System.out.println("Enter your choice: ");
-        int x = scanner.nextInt();
-        scanner.nextLine();
-        switch (x) {
-            case 1:
-                create();
-                eventDashboard();
-                break;
-            case 2:
-                update();
-                eventDashboard();
-                break;
-            case 3:
-                read();
-                eventDashboard();
-                break;
-            case 4:
-                delete();
-                eventDashboard();
-                break;
-            case 5:
-                organizerDashboard();
-                break;
-            default:
-                System.out.println("Invalid choice!");
-                organizerDashboard();
-                break;
+    public void eventDashboard()
+    {
+        while (true)
+        {
+            try {
+                System.out.println("--- Welcome To Event Menu ---");
+                System.out.println("\nPlease select an option:");
+                System.out.println("1) Create new event");
+                System.out.println("2) Update an existing event");
+                System.out.println("3) View my events");
+                System.out.println("4) Delete an existing event");
+                System.out.println("5) Return to organizer dashboard");
+                System.out.print("Enter your choice: ");
+
+                int x = scanner.nextInt();
+                scanner.nextLine(); // Clear newline
+
+                switch (x)
+                {
+                    case 1:
+                        create();
+                        break;
+                    case 2:
+                        update();
+                        break;
+                    case 3:
+                        read();
+                        break;
+                    case 4:
+                        delete();
+                        break;
+                    case 5:
+                        organizerDashboard();
+                        return; // Exit the loop and return
+                    default:
+                        System.out.println("Invalid choice! Please enter a number between 1 and 5.");
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println("Invalid input! Please enter a numeric value.");
+                scanner.nextLine(); // Clear invalid input
+            }
         }
-        scanner.close();
     }
-    private void Earnings() {
+
+
+    private void Earnings()
+    {
         System.out.println("\n---View Earnings---");
         double totalearnings = wallet.getBalance();
         System.out.println("Total Earnings: " + totalearnings);
         System.out.println("Earnings By Event: ");
-        for (Event event : Database.getEvents()) {
-            if (event.getOrganizer() != null && event.getOrganizer().equals(this)) {
+        for (Event event : Database.getEvents())
+        {
+            if (event.getOrganizer() != null && event.getOrganizer().equals(this))
+            {
                 System.out.println(event+": "+event.getTicketPrice() * (event.getAttendees().size()-1));
             }
         }

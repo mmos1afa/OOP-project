@@ -1,23 +1,27 @@
 import java.util.Scanner;
 import java.util.Date;
-public class User {
+public class User
+{
     protected String username;
     protected String password;
     protected Date dateOfBirth;
 
-    public User(String username, String password, Date dateOfBirth) {
+    public User(String username, String password, Date dateOfBirth)
+    {
         this.username = username;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void mainDashboard(){
+    public static void mainDashboard()
+    {
         System.out.println("Welcome to the Event Management System");
         System.out.println("Please select an option");
         Scanner scanner = new Scanner(System.in);
@@ -42,7 +46,8 @@ public class User {
         scanner.close();
     }
 
-    public static void register() {
+    public static void register()
+    {
         System.out.println("Register as: \n1) Admin \n2) Organizer \n3) Attendee");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -73,6 +78,7 @@ public class User {
                     }
                 }
                 break;
+
             case 3:
                 System.out.print("Username: ");
                 username = scanner.nextLine();
@@ -93,10 +99,12 @@ public class User {
         System.out.print("Password: ");
         String password = scanner.nextLine();
         System.out.print("Date of Birth (yyyy-mm-dd): ");
-        try{
+        try
+        {
             dob = java.sql.Date.valueOf(scanner.nextLine());
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             System.out.println("Invalid date format. Please try again.");
             register();
             return;
@@ -106,17 +114,12 @@ public class User {
                 System.out.print("Role: ");
                 String role = scanner.nextLine();
                 System.out.print("Working Hours: ");
-
-
                 int hours = scanner.nextInt();
-
-
                 scanner.nextLine();
                 Admin admin = new Admin(username, password, dob, role, hours);
                 Database.getAdmins().add(admin);
                 System.out.println(" Admin registered.");
                 mainDashboard();
-
                 break;
             case 2:
                 Organizer organizer = new Organizer(username, password, dob);
@@ -126,8 +129,27 @@ public class User {
 
                 break;
             case 3:
-                System.out.print("Initial Wallet Balance: ");
-                double balance = scanner.nextDouble();
+                //System.out.print("Initial Wallet Balance: ");
+                //double balance = scanner.nextDouble();
+                double balance = 0; // ✅ declare it outside the loop so it's accessible later
+                boolean validInput = false;
+                while (!validInput)
+                {
+                    try
+                    {
+                        System.out.print("Initial Wallet Balance: ");
+                        balance = scanner.nextDouble(); // ✅ now it updates the outer variable
+                        scanner.nextLine();
+                        validInput = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println("Invalid input. Please enter a numeric value for the wallet balance.");
+                        scanner.nextLine();
+                    }
+                }
+
+
                 scanner.nextLine();
                 System.out.print("Address: ");
                 String address = scanner.nextLine();
@@ -139,13 +161,14 @@ public class User {
                 Database.getAttendees().add(attendee);
                 System.out.println(" Attendee registered.");
                 mainDashboard();
-
                 break;
+
             default:
                 System.out.println(" Invalid user type.");
                 register();
                 break;
         }
+
         scanner.close();
     }
 
@@ -153,8 +176,9 @@ public class User {
         return this.username.equals(inputUsername) && this.password.equals(inputPassword);
     }
 
-    public static void login() {
-        System.out.println("Login as: \n1) Admin \n2) Organizer \n3) Attendee");
+    public static void login()
+    {
+        System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
         int choice = scanner.nextInt();
         scanner.nextLine();
         System.out.print("Username: ");
@@ -167,8 +191,10 @@ public class User {
 
         switch (choice) {
             case 1 :
-                for (Admin a : Database.getAdmins()) {
-                    if (a.loginCheck(username, password)) {
+                for (Admin a : Database.getAdmins())
+                {
+                    if (a.loginCheck(username, password))
+                    {
                         System.out.println(" Admin login successful.");
                         a.adminDashboard();
                         found = true;
@@ -177,8 +203,10 @@ public class User {
                 }
                 break;
             case 2:
-                for (Organizer o : Database.getOrganizers()) {
-                    if (o.loginCheck(username, password)) {
+                for (Organizer o : Database.getOrganizers())
+                {
+                    if (o.loginCheck(username, password))
+                    {
                         System.out.println(" Organizer login successful.");
                         o.organizerDashboard();
                         found = true;
@@ -187,8 +215,10 @@ public class User {
                 }
                 break;
             case 3:
-                for (Attendee at : Database.getAttendees()) {
-                    if (at.loginCheck(username, password)) {
+                for (Attendee at : Database.getAttendees())
+                {
+                    if (at.loginCheck(username, password))
+                    {
                         System.out.println(" Attendee login successful.");
                         at.attendeeMenu();
                         found = true;
@@ -201,12 +231,14 @@ public class User {
                 login();
                 break;
         }
-        if (!found) {
+        if (!found)
+        {
             System.out.println(" Login failed. Check username/password.");
             login();
         }
     }
-    public void logout(){
+    public void logout()
+    {
         System.out.println("Logging out....");
         mainDashboard();
     }
