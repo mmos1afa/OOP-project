@@ -11,9 +11,6 @@ public class Room {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-    public void addavailabletime(LocalTime time){
-        availabletimes.add(time);
-    }
 
     public Room(String roomName , LocalTime time) {
         this.roomName = roomName;

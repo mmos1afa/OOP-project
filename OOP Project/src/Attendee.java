@@ -21,6 +21,9 @@ public class Attendee extends User{
         this.interests=interests;
         this.registeredevents = new ArrayList<>();
     }
+    public Wallet getWallet(){
+        return wallet;
+    }
     Scanner input= new Scanner(System.in);
 
     void attendeeMenu(){

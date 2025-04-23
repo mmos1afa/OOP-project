@@ -37,11 +37,11 @@ public class Database {
         Room r1 = new Room("Room A",time);
         Room r2 = new Room("Room B",time2);
         r1.isAvailable(time);
-        r1.addavailabletime(time);
+        r1.addAvailableTime(time);
         r1.isAvailable(time2);
         r1.addAvailableTime(time2);
         r2.isAvailable(time2);
-        r2.addavailabletime(time2);
+        r2.addAvailableTime(time2);
 
 
         Category cat1 = new Category("Music");
