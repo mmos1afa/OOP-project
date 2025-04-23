@@ -6,6 +6,9 @@ public class Wallet
     {
         this.balance = balance;
     }
+    public Wallet() {
+        this.balance = 0;
+    }
 
     public double getBalance()
     {
@@ -19,8 +22,12 @@ public class Wallet
         return balance;
     }
 
-    double deposit(double amount)
-    {
+
+//    double deposit(double amount)
+//    {
+
+    public double deposit(double amount){
+
         return balance += amount ;
     }
 

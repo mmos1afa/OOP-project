@@ -12,10 +12,12 @@ public class Room {
     {
         this.available = available;
     }
+
     public void addavailabletime(LocalTime time)
     {
         availabletimes.add(time);
     }
+
 
     public Room(String roomName , LocalTime time)
     {

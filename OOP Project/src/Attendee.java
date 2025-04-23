@@ -7,7 +7,7 @@ public class Attendee extends User{
     private Gender gender;
     private double balance;
     private String address;
-    Wallet wallet;
+    private Wallet wallet;
     private List<Event>registeredevents;
     private String interests;
 
@@ -20,6 +20,9 @@ public class Attendee extends User{
         this.wallet=new Wallet(intialBalance);
         this.interests=interests;
         this.registeredevents = new ArrayList<>();
+    }
+    public Wallet getWallet(){
+        return wallet;
     }
     Scanner input= new Scanner(System.in);
 
