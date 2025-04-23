@@ -21,9 +21,9 @@ public class User {
     public static void mainDashboard() {
         while (true) {
             try {
-                System.out.println("Welcome to the Event Management System");
-                System.out.println("Please select an option");
-                System.out.println("1. Register \n2. Login \n3. Exit");
+                System.out.println("---Welcome to the Event Management System---");
+                System.out.println("--Please select an option--");
+                System.out.println("1) Register \n2) Login \n3) Exit");
 
                 int x = scanner.nextInt();
                 scanner.nextLine();
@@ -53,25 +53,25 @@ public class User {
         System.out.println("Register as: \n1) Admin \n2) Organizer \n3) Attendee");
 
         int choice = -1;
+        boolean validchoice = false;
+        while (!validchoice){
         try {
             choice = scanner.nextInt();
             scanner.nextLine();
-        } catch (Exception e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine();
-            register();
-            return;
+            if (choice >= 1 && choice <= 3) {
+                validchoice = true;
+            } else {
+                System.out.println("Invalid choice. Please Try Again");
+            }
+        }catch(Exception e){
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+                register();
+                return;
+            }
         }
-
-        if (choice < 1 || choice > 3) {
-            System.out.println("Invalid choice. Try again.");
-            register();
-            return;
-        }
-
         System.out.print("Username: ");
         String username = scanner.nextLine();
-
         boolean usernameTaken = false;
         switch (choice) {
             case 1:
@@ -110,13 +110,14 @@ public class User {
         String password = scanner.nextLine();
 
         Date dob;
-        System.out.print("Date of Birth (yyyy-mm-dd): ");
-        try {
-            dob = java.sql.Date.valueOf(scanner.nextLine());
-        } catch (Exception e) {
-            System.out.println("Invalid date format. Please try again.");
-            register();
-            return;
+        while (true) {
+            System.out.print("Date of Birth (YYYY-MM-DD): ");
+            try {
+                dob = java.sql.Date.valueOf(scanner.nextLine());
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please try again.");
+            }
         }
 
         switch (choice) {
@@ -128,7 +129,7 @@ public class User {
                 scanner.nextLine();
                 Admin admin = new Admin(username, password, dob, role, hours);
                 Database.getAdmins().add(admin);
-                System.out.println(" admin registered.");
+                System.out.println("admin registered.");
                 break;
 
             case 2:
