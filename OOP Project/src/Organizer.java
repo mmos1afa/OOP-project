@@ -56,14 +56,14 @@ public class Organizer extends User implements CRUD {
                         break;
                     case 6:
                         logout();
-                        return; // exit the loop after logout
+                        return;
                     default:
                         System.out.println("Invalid choice. Please select from 1 to 6.");
                 }
             } catch (Exception e)
             {
                 System.out.println("Invalid input. Please enter a number from 1 to 6.");
-                scanner.nextLine(); // clear the invalid input
+                scanner.nextLine();
             }
         }
     }
@@ -85,6 +85,7 @@ public class Organizer extends User implements CRUD {
                 {
                     for (Attendee attendee : event.getAttendees())
                     {
+                        System.out.println(event.getTitle() + "Attendees: ");
                         System.out.println("  - " + attendee.getUsername());
                     }
                 }
@@ -307,7 +308,7 @@ public class Organizer extends User implements CRUD {
                         break;
                     case 5:
                         organizerDashboard();
-                        return; // Exit the loop and return
+                        return;
                     default:
                         System.out.println("Invalid choice! Please enter a number between 1 and 5.");
                 }
@@ -315,7 +316,7 @@ public class Organizer extends User implements CRUD {
             catch (Exception e)
             {
                 System.out.println("Invalid input! Please enter a numeric value.");
-                scanner.nextLine(); // Clear invalid input
+                scanner.nextLine();
             }
         }
     }

@@ -82,33 +82,37 @@ public class Admin extends User implements CRUD
         read();
         System.out.println("\nPlease enter the name of the category:");
         String name = scanner.nextLine();
+        boolean found = false;
         for (Category category : Database.getCategories()) {
             if (category.getName().equals(name)) {
                 System.out.println("Please enter the new name of the category:");
                 String newName = scanner.nextLine();
                 category.setName(newName);
                 System.out.println("Category updated successfully!");
-            }
-            else {
-                System.out.println("Category not found!");
+                found = true;
             }
         }
+        if (!found) {
+            System.out.println("Category not found!");
+        }
     }
-    public void delete()
-
-    {
+    public void delete() {
         read();
         System.out.println("\nPlease enter the name of the category:");
         String name = scanner.nextLine();
-        for (Category category : Database.getCategories())
+        boolean found = false;
+        for (Category category : Database.getCategories()) {
             if (category.getName().equalsIgnoreCase(name)) {
                 Database.getCategories().remove(category);
                 System.out.println("Category deleted successfully!");
                 Category.noOfCategories--;
+                found = true;
                 break;
-            } else {
-                System.out.println("Category not found!");
             }
+        }
+        if(!found){
+            System.out.println("Category not found!");
+        }
     }
 
     public void read(){

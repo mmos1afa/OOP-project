@@ -23,9 +23,6 @@ public class Wallet
     }
 
 
-//    double deposit(double amount)
-//    {
-
     public double deposit(double amount){
 
         return balance += amount ;

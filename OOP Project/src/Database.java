@@ -36,11 +36,8 @@ public class Database {
         LocalTime time2 = LocalTime.of(12, 30);
         Room r1 = new Room("Room A",time);
         Room r2 = new Room("Room B",time2);
-        r1.isAvailable(time);
         r1.addAvailableTime(time);
-        r1.isAvailable(time2);
         r1.addAvailableTime(time2);
-        r2.isAvailable(time2);
         r2.addAvailableTime(time2);
 
 
@@ -49,7 +46,7 @@ public class Database {
 
         Event sampleEvent = new Event("Prom", org, r1, 600.0,List.of(att), cat1);
         Event sampleEvent2 = new Event("Graduation", org, r2, 600.0,List.of(att2), cat2);
-        Event sampleEvent3 = new Event("Dinner",org,r1,1500,List.of(att),cat1);
+        Event sampleEvent3 = new Event("Dinner",org,r1,1500,List.of(att2),cat1);
 
         admins.add(admin);
         admins.add(admin2);

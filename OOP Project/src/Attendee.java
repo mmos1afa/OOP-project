@@ -93,6 +93,7 @@ public class Attendee extends User{
             }
         }
     }
+
     public void registerEvent() {
         if (Database.getEvents().isEmpty()) {
             System.out.println("\nNo events available at the moment!");
@@ -158,7 +159,7 @@ public class Attendee extends User{
         System.out.println("Please select an option: ");
         System.out.println("1: Search By Name");
         System.out.println("2: Search By Category");
-        System.out.println("3: Return to Admin Menu");
+        System.out.println("3: Return to Attendee Menu");
         Scanner sc = new Scanner(System.in);
         Scanner x = new Scanner(System.in);
         int choice = sc.nextInt();
