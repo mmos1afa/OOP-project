@@ -183,7 +183,8 @@ public class User {
         return this.username.equals(inputUsername) && this.password.equals(inputPassword);
     }
 
-    public static void login() {
+    public static void login()
+    {
         System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -191,13 +192,21 @@ public class User {
         String username = scanner.next().trim();
         System.out.print("Password: ");
         String password = scanner.next().trim();
-
+        if(choice>=3||choice<=1)
+        {
+            System.out.println("invalid choice. Please try again.");
+            login();
+            return;
+        }
         boolean found = false;
 
-        switch (choice) {
+        switch (choice)
+        {
             case 1:
-                for (Admin a : Database.getAdmins()) {
-                    if (a.loginCheck(username, password)) {
+                for (Admin a : Database.getAdmins())
+                {
+                    if (a.loginCheck(username, password))
+                    {
                         System.out.println(" Admin login successful.");
                         a.adminDashboard();
                         found = true;
@@ -206,8 +215,10 @@ public class User {
                 }
                 break;
             case 2:
-                for (Organizer o : Database.getOrganizers()) {
-                    if (o.loginCheck(username, password)) {
+                for (Organizer o : Database.getOrganizers())
+                {
+                    if (o.loginCheck(username, password))
+                    {
                         System.out.println(" Organizer login successful.");
                         o.organizerDashboard();
                         found = true;
@@ -230,7 +241,8 @@ public class User {
                 login();
                 break;
         }
-        if (!found) {
+        if (!found)
+        {
             System.out.println(" Login failed. Check username/password.");
             login();
         }
