@@ -197,10 +197,17 @@ public class Admin extends User implements CRUD
         String roomName = scanner.nextLine();
         System.out.println("Enter available time for the room: (HH:mm)");
         System.out.print("Available time: ");
-        Scanner scannerx = new Scanner(System.in);
-        String availabletime = scannerx.nextLine();
-        LocalTime time = LocalTime.parse(availabletime, DateTimeFormatter.ofPattern("HH:mm"));
-        time = time.withSecond(0).withNano(0);
+        LocalTime time = null;
+        while (time == null) {
+            try {
+                String availabletime = scanner.nextLine();
+                time = LocalTime.parse(availabletime, DateTimeFormatter.ofPattern("HH:mm"));
+                time = time.withSecond(0).withNano(0);
+            } catch (Exception e) {
+                System.out.println("Invalid time format. Please enter the time in HH:mm format.");
+                System.out.print("Available time: ");
+            }
+        }
         Room newroom = new Room(roomName,time);
         newroom.addAvailableTime(time);
         Database.getRooms().add(newroom);

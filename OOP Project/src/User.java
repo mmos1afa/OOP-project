@@ -181,11 +181,8 @@ public class User {
     }
 
     public boolean loginCheck(String inputUsername, String inputPassword) {
-        boolean isvalid = this.username.equals(inputUsername) && this.password.equals(inputPassword);
-        if (!isvalid) {
-            System.out.println("Invalid Login For: " + username);
-        }
-        return isvalid;
+       return this.username.equals(inputUsername) && this.password.equals(inputPassword);
+
     }
 
 
