@@ -181,13 +181,19 @@ public class User {
     }
 
     public boolean loginCheck(String inputUsername, String inputPassword) {
-        return this.username.equals(inputUsername) && this.password.equals(inputPassword);
+        boolean isvalid = this.username.equals(inputUsername) && this.password.equals(inputPassword);
+        if(!isvalid){
+            System.out.println("Invalid Login For: "+ username);
+        }
+        return isvalid;
     }
 
     public static void login() {
+
         System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
         int choice = scanner.nextInt();
         scanner.nextLine();
+
         System.out.print("Username: ");
         String username = scanner.next().trim();
         System.out.print("Password: ");
