@@ -20,95 +20,109 @@ public class User
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void mainDashboard()
-    {
-        System.out.println("Welcome to the Event Management System");
-        System.out.println("Please select an option");
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("1.Register \n2.Login \n3.Exit");
-        int x = scanner.nextInt();
-        switch(x)
-        {
-            case 1:
-                User.register();
-            case 2:
-                User.login();
-                break;
-            case 3:
-                System.out.println("Exiting...");
-                System.exit(0);
+    public static void mainDashboard() {
+        while (true) {
+            try {
+                System.out.println("Welcome to the Event Management System");
+                System.out.println("Please select an option");
+                System.out.println("1. Register \n2. Login \n3. Exit");
 
-            default:
-                System.out.println("Invalid choice");
-                mainDashboard();
-                break;
+                int x = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (x) {
+                    case 1:
+                        User.register();
+                        break;
+                    case 2:
+                        User.login();
+                        break;
+                    case 3:
+                        System.out.println("Exiting...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // clear the invalid input
+            }
+
         }
-        scanner.close();
     }
 
-    public static void register()
-    {
+   
+        public static void register() {
         System.out.println("Register as: \n1) Admin \n2) Organizer \n3) Attendee");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
-        Date dob = null;
-        String username = null;
-        switch(choice) {
+
+        int choice = -1;
+        try {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+            register();
+            return;
+        }
+
+        if (choice < 1 || choice > 3) {
+            System.out.println("Invalid choice. Try again.");
+            register();
+            return;
+        }
+
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+
+        boolean usernameTaken = false;
+        switch (choice) {
             case 1:
-                System.out.print("Username: ");
-                username = scanner.nextLine();
                 for (Admin a : Database.getAdmins()) {
                     if (a.getUsername().equals(username)) {
-                        System.out.println("Username already taken. Please try again.");
-                        register();
-                        return;
+                        usernameTaken = true;
+                        break;
                     }
-                    break;
                 }
-
-
+                break;
             case 2:
-                System.out.print("Username: ");
-                username = scanner.nextLine();
                 for (Organizer o : Database.getOrganizers()) {
                     if (o.getUsername().equals(username)) {
-                        System.out.println("Username already taken. Please try again.");
-                        register();
-                        return;
+                        usernameTaken = true;
+                        break;
                     }
                 }
                 break;
-
             case 3:
-                System.out.print("Username: ");
-                username = scanner.nextLine();
-                for (Attendee at : Database.getAttendees())
-                {
+                for (Attendee at : Database.getAttendees()) {
                     if (at.getUsername().equals(username)) {
-                        System.out.println("Username already taken. Please try again.");
-                        register();
-                        return;
+                        usernameTaken = true;
+                        break;
                     }
                 }
                 break;
-            default:
-                System.out.println("invalid choice");
-                register();
+        }
+
+        if (usernameTaken) {
+            System.out.println("Username already taken. Please try again.");
+            register();
+            return;
         }
 
         System.out.print("Password: ");
         String password = scanner.nextLine();
+
+        Date dob;
         System.out.print("Date of Birth (yyyy-mm-dd): ");
-        try
-        {
+        try {
             dob = java.sql.Date.valueOf(scanner.nextLine());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Invalid date format. Please try again.");
             register();
             return;
         }
+
         switch (choice) {
             case 1:
                 System.out.print("Role: ");
@@ -118,61 +132,59 @@ public class User
                 scanner.nextLine();
                 Admin admin = new Admin(username, password, dob, role, hours);
                 Database.getAdmins().add(admin);
-                System.out.println(" Admin registered.");
-                mainDashboard();
+                System.out.println("✅ Admin registered.");
                 break;
+
             case 2:
                 Organizer organizer = new Organizer(username, password, dob);
                 Database.getOrganizers().add(organizer);
-                System.out.println(" Organizer registered.");
-                mainDashboard();
-
+                System.out.println("✅ Organizer registered.");
                 break;
+
             case 3:
-                //System.out.print("Initial Wallet Balance: ");
-                //double balance = scanner.nextDouble();
-                double balance = 0; // ✅ declare it outside the loop so it's accessible later
-                boolean validInput = false;
-                while (!validInput)
-                {
-                    try
-                    {
+                double balance = 0;
+                boolean validBalance = false;
+                while (!validBalance) {
+                    try {
                         System.out.print("Initial Wallet Balance: ");
-                        balance = scanner.nextDouble(); // ✅ now it updates the outer variable
+                        balance = scanner.nextDouble();
                         scanner.nextLine();
-                        validInput = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        System.out.println("Invalid input. Please enter a numeric value for the wallet balance.");
+                        validBalance = true;
+                    } catch (Exception ex) {
+                        System.out.println("Invalid input. Please enter a numeric value.");
                         scanner.nextLine();
                     }
                 }
 
-
-                scanner.nextLine();
                 System.out.print("Address: ");
                 String address = scanner.nextLine();
-                System.out.print("Gender (MALE/FEMALE): ");
-                Gender gender = Gender.valueOf(scanner.nextLine().trim().toUpperCase());
+
+                Gender gender = null;
+                boolean validGender = false;
+                while (!validGender) {
+                    try {
+                        System.out.print("Gender (MALE/FEMALE): ");
+                        gender = Gender.valueOf(scanner.nextLine().trim().toUpperCase());
+                        validGender = true;
+                    } catch (Exception ex) {
+                        System.out.println("Invalid gender. Please enter MALE or FEMALE.");
+                    }
+                }
+
                 System.out.print("Interests: ");
-                String interests = scanner.next();
+                String interests = scanner.nextLine();
+
                 Attendee attendee = new Attendee(username, password, dob, balance, address, gender, interests);
                 Database.getAttendees().add(attendee);
-                System.out.println(" Attendee registered.");
-                mainDashboard();
-                break;
-
-            default:
-                System.out.println(" Invalid user type.");
-                register();
+                System.out.println("✅ Attendee registered.");
                 break;
         }
 
-        scanner.close();
+        mainDashboard();
     }
 
-    public boolean loginCheck(String inputUsername, String inputPassword) {
+
+        public boolean loginCheck(String inputUsername, String inputPassword) {
         return this.username.equals(inputUsername) && this.password.equals(inputPassword);
     }
 
