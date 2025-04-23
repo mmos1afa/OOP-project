@@ -193,6 +193,12 @@ public class User {
         System.out.println("Login as: \n 1) Admin \n 2) Organizer \n 3) Attendee");
         int choice = scanner.nextInt();
         scanner.nextLine();
+        if(choice>3||choice<1)
+        {
+            System.out.println("invalid choice. Please try again.");
+            login();
+            return;
+        }
 
         System.out.print("Username: ");
         String username = scanner.next().trim();
